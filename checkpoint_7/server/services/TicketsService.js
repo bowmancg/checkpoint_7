@@ -35,7 +35,7 @@ class TicketsService{
         return tickets
     }
 
-    async deleteTicket(ticketId, userId, ticketData) {
+    async deleteTicket(ticketId, userId) {
         let ticket = await dbContext.Ticket.findById(ticketId)
         if (ticket == null) {
             throw new BadRequest("No tickets left.")
@@ -43,8 +43,7 @@ class TicketsService{
         if (userId != ticket.accountId) {
             throw new Forbidden("You can't delete this.")
         }
-        const towerEvent = await towerEventsService.getById(ticketData.eventId)
-        towerEvent.capacity++
+        
         await ticket.remove()
 
     }
