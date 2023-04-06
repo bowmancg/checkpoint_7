@@ -50,6 +50,15 @@ class TowerEventsService{
         await towerEvent.save()
         return `${towerEvent.name} has been cancelled.`
     }
+
+    async getTicketsForEvents(accountId) {
+        let towerEvents = await dbContext.Ticket.find({accountId})
+        .populate({path: "event", 
+    populate: {
+        path: "profile"
+    }})
+    return towerEvents
+    }
 }
 
 export const towerEventsService = new TowerEventsService()
