@@ -29,10 +29,26 @@ class TowerEventsService{
     async editById(towerEventEdit, towerEventId) {
         const originalEvent = await this.getById(towerEventId)
         
+        if (originalEvent.isCanceled) {
+            throw new BadRequest('Cannot edit cancelled event.')
+        }
         originalEvent.name = towerEventEdit.name ? towerEventEdit.name : originalEvent.name
         originalEvent.description = towerEventEdit.description ? towerEventEdit.description : originalEvent.description
         await originalEvent.save()
         return originalEvent
+    }
+
+    async cancelEvent(towerEventId, userId) {
+        let towerEvent = await this.getById(towerEventId)
+        if (towerEvent.creatorId != userId) {
+            throw new Forbidden('You cannot cancel this event.')
+        }
+        if (towerEvent.isCanceled == true) {
+            throw new Forbidden('This event has been cancelled.')
+        }
+        towerEvent.isCanceled = true
+        await towerEvent.save()
+        return `${towerEvent.name} has been cancelled.`
     }
 }
 
