@@ -19,7 +19,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-
+          <button v-if="account.id" type="button" data-bs-toggle="modal" data-bs-target="#eventModal" class="btn btn-success">Add Event</button>
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
@@ -29,10 +29,19 @@
 </template>
 
 <script>
+import { useRoute } from 'vue-router';
 import Login from './Login.vue'
+import { computed } from 'vue';
+import { AppState } from '../AppState';
 export default {
   setup() {
-    return {}
+    const route = useRoute()
+    return {
+      route,
+      towerEvent: computed(() => AppState.towerEvent),
+      account: computed(() => AppState.account),
+
+    }
   },
   components: { Login }
 }

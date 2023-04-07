@@ -1,6 +1,6 @@
 <template>
-  <div class="container-fluid">
-    <div class="home flex-grow-1 p-4 d-flex row flex-column align-items-center justify-content-center">
+  <div class="container">
+    <div class="flex-grow-1 p-4 d-flex row align-items-center justify-content-center">
       <div v-for="t in towerEvents" :key="t.id" class="p-3 my-3 col-md-2">
         <EventCard :towerEvent="t" />
       </div>
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import EventCard from '../components/EventCard.vue';
 import { towerEventsService } from '../services/TowerEventsService';
 import { logger } from '../utils/Logger';
@@ -19,7 +19,7 @@ import { AppState } from '../AppState';
 
 export default {
     setup() {
-
+      // const types: ["concert", "sport", "convention", "digital"]
       async function getAllEvents() {
         try {
           await towerEventsService.getAllEvents()

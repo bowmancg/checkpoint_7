@@ -1,8 +1,16 @@
 <template>
-  <div class="about text-center">
-    <h1>Welcome {{ account.name }}</h1>
-    <img class="rounded" :src="account.picture" alt="" />
-    <p>{{ account.email }}</p>
+  <div class="container">
+    <div class="about text-center">
+      <h1>Welcome {{ account.name }}</h1>
+      <img class="rounded" :src="account.picture" alt="" />
+      <p>{{ account.email }}</p>
+    </div>
+    <div class="row d-flex justify-content-start">
+      <div class="col-md-2">
+        <h3>My Events</h3>
+        
+      </div>
+    </div>
   </div>
 </template>
 
