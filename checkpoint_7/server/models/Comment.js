@@ -1,5 +1,4 @@
 import { Schema } from "mongoose";
-import { TowerEventSchema } from "./TowerEvents";
 
 export const CommentSchema = new Schema({
     creatorId: { type: Schema.Types.ObjectId, required: true, ref: "Account" },
@@ -8,7 +7,7 @@ export const CommentSchema = new Schema({
     isAttending: { type: Boolean, required: true, default: false }
 }, { timestamps: true, toJSON: {virtuals: true}})
 
-TowerEventSchema.virtual("creator", {
+CommentSchema.virtual("creator", {
     localField: "creatorId",
     foreignField: "_id",
     justOne: true,

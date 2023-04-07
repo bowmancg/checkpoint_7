@@ -7,9 +7,12 @@ class TicketsService{
 
     async create(ticketData) {
         const towerEvent = await towerEventsService.getById(ticketData.eventId)
-        // if (towerEvent.isCanceled =  true) {
-        //     throw new BadRequest('An error has occurred.')
-        // }
+        if (towerEvent.isCanceled == true) {
+            throw new BadRequest('An error has occurred.')
+        }
+        if (towerEvent.capacity < 1) {
+            throw new BadRequest('no more capacity')
+        }
         let ticket = await dbContext.Ticket.create(ticketData)
         towerEvent.capacity--
         await towerEvent.save()
@@ -43,9 +46,12 @@ class TicketsService{
         if (userId != ticket.accountId) {
             throw new Forbidden("You can't delete this.")
         }
+        const eventId = ticket.eventId
         
         await ticket.remove()
-
+        const towerEvent = await towerEventsService.getById(eventId)
+        towerEvent.capacity++
+        await towerEvent.save()
     }
 }
 

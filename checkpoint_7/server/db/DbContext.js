@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { AccountSchema } from '../models/Account'
 import { ValueSchema } from '../models/Value'
-import { TowerEventSchema } from '../models/TowerEvents'
+import { TowerEventSchema } from '../models/TowerEvent'
 import { TicketSchema } from '../models/Ticket';
 import { CommentSchema } from '../models/Comment'
 
