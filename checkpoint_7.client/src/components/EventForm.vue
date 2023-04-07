@@ -7,6 +7,18 @@
             <input type="url" name="coverImg" id="coverImg" placeholder="Add an Image..." v-model="editable.coverImg" class="form-control">
         </div>
         <div class="m-4">
+            <input type="text" name="location" id="location" placeholder="Add a Location..." v-model="editable.location" class="form-control">
+        </div>
+        <div class="m-4">
+            <input type="number" name="capacity" id="capacity" placeholder="Add Capacity..." v-model="editable.capacity" class="form-control">
+        </div>
+        <div class="m-4">
+            <input type="text" name="description" id="description" placeholder="Add Description..." v-model="editable.description" class="form-control">
+        </div>
+        <div class="m-4">
+            <input type="datetime-local" name="startDate" id="startDate" placeholder="Add Date..." v-model="editable.startDate" class="form-control">
+        </div>
+        <div class="m-4">
             <label for="type">Select an Event</label>
             <select name="type" id="type" class="form-select">
                 <option value="concert">Concert</option>

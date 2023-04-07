@@ -32,7 +32,7 @@ class TowerEventsService {
         if (originalEvent.isCanceled) {
             throw new BadRequest('Cannot edit cancelled event.')
         }
-        if (userId == null) {
+        if (userId != originalEvent.creatorId) {
             throw new BadRequest('You are not allowed to edit this.')
         }
         originalEvent.name = towerEventEdit.name ? towerEventEdit.name : originalEvent.name

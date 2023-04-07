@@ -1,5 +1,13 @@
 <template>
   <div class="container">
+    <div class="row justify-content-center p-4">
+        <div class="col-md-10 p-3 rounded">
+            <div class="d-flex justify-content-around">
+                <button @click="changeFilterType('')" class="btn btn-outline-success">All</button>
+                <button @click="changeFilterType(t)" v-for="t in types" class="btn btn-outline-success">{{ t.toUpperCase() }}</button>
+            </div>
+        </div>
+    </div>
     <div class="flex-grow-1 p-4 d-flex row align-items-center justify-content-center">
       <div v-for="t in towerEvents" :key="t.id" class="p-3 my-3 col-md-2">
         <EventCard :towerEvent="t" />
@@ -19,7 +27,8 @@ import { AppState } from '../AppState';
 
 export default {
     setup() {
-      // const types: ["concert", "sport", "convention", "digital"]
+      const filterType = ref('')
+      const types = ["concert", "sport", "convention", "digital"]
       async function getAllEvents() {
         try {
           await towerEventsService.getAllEvents()
@@ -32,7 +41,19 @@ export default {
         getAllEvents()
       })
         return {
-          towerEvents: computed(() => AppState.towerEvents)
+          types,
+          myTowerEvents: computed(() => AppState.myTowerEvents),
+          account: computed(() => AppState.account),
+          towerEvents: computed(() => {
+            if (!filterType.value) {
+              return AppState.towerEvents
+            } else {
+              return AppState.towerEvents.filter(t => t.type == filterType.value)
+            }
+          }),
+          changeFilterType(type) {
+            filterType.value = type
+          }
         };
     },
     components: { EventCard }

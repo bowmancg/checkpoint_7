@@ -4,6 +4,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <img :src="towerEvent.coverImg" alt="" class="img-fluid cover-img rounded">
+
                 </div>
                 <div class="col-md-6">
                     <div class="bg-info rounded p-3">
@@ -12,6 +13,12 @@
                         <p class="fs-5">{{ towerEvent.description }}</p>
                     </div>
                 </div>
+                <div class="pt-4">
+                    <button class="btn btn-info"></button>
+                </div>
+            </div>
+            <div v-if="towerEvent.isCanceled" class="col-md-3">
+                <h3 class="text-warning">This Event is Cancelled</h3>
             </div>
         </div>
         <div class="col-md-8">
