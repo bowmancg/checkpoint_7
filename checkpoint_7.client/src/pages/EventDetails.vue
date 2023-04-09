@@ -4,7 +4,6 @@
             <div class="row">
                 <div class="col-md-6">
                     <img :src="towerEvent.coverImg" alt="" class="img-fluid cover-img rounded">
-
                 </div>
                 <div class="col-md-6">
                     <div class="bg-info rounded p-3">
@@ -17,6 +16,16 @@
                     <button class="btn btn-info">Get Tickets</button>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <CommentForm :event="towerEvent"/>
+                </div>
+            </div>
+            <div class="row">
+                    <div v-for="c in comments" :key="c.id" class="col-xs-12 p-4 my-3">
+                        <CommentCard :comment="c" />
+                    </div>
+            </div>
             <div v-if="towerEvent.isCanceled" class="col-md-3">
                 <h3 class="text-warning">This Event is Cancelled</h3>
             </div>
@@ -26,7 +35,8 @@
                 <div class="col-md-4 p-4">
                     <button class="btn btn-success" v-if="account.id && !isAttending" :disabled="towerEvent.isCanceled"
                         @click="createTicket()">Attend</button>
-                    <button class="btn btn-danger" @click="deleteTicket(isAttending.ticketId)" v-if="account && isAttending">Delete Ticket</button>    
+                    <button class="btn btn-danger" @click="deleteTicket(isAttending.ticketId)"
+                        v-if="account && isAttending">Delete Ticket</button>
                 </div>
             </div>
         </div>
@@ -41,45 +51,62 @@ import { computed, reactive, onMounted } from 'vue';
 import Pop from '../utils/Pop';
 import { towerEventsService } from '../services/TowerEventsService';
 import { ticketsService } from '../services/TicketsService';
+import CommentCard from '../components/CommentCard.vue';
+import CommentForm from '../components/CommentForm.vue';
+import { commentsService } from '../services/CommentsService';
 export default {
     setup() {
-        const route = useRoute()
-        async function getEventById() {
+        const route = useRoute();
+        async function getCommentsByEvent() {
             try {
                 const eventId = route.params.eventId
-                await towerEventsService.getEventById(eventId)
+                await commentsService.getCommentsByEvent(eventId)
             } catch (error) {
-                Pop.error(('[error]'), error.message)
+                Pop.error(error.message)
+            }
+        }
+        async function getEventById() {
+            try {
+                const eventId = route.params.eventId;
+                await towerEventsService.getEventById(eventId);
+            }
+            catch (error) {
+                Pop.error(("[error]"), error.message);
             }
         }
         onMounted(() => {
-            getEventById()
-        })
+            getEventById();
+            getCommentsByEvent()
+        });
         return {
+            comments: computed(() => AppState.comments),
             towerEvent: computed(() => AppState.towerEvent),
             account: computed(() => AppState.account),
             myTowerEvents: computed(() => AppState.myTowerEvents),
             isAttending: computed(() => AppState.myTowerEvents.find(t => t.id == AppState.towerEvent.id)),
             async createTicket() {
                 try {
-                    if (!this.isAttending) {                        
-                        await ticketsService.createTicket({ eventId: route.params.eventId })
+                    if (!this.isAttending) {
+                        await ticketsService.createTicket({ eventId: route.params.eventId });
                     }
-                } catch (error) {
-                    Pop.error(error.message)
+                }
+                catch (error) {
+                    Pop.error(error.message);
                 }
             },
             async deleteTicket(ticketId) {
                 try {
-                    if (await Pop.confirm('Are you sure you want to delete this.')) {
-                        await ticketsService.deleteTicket(ticketId)
+                    if (await Pop.confirm("Are you sure you want to delete this?")) {
+                        await ticketsService.deleteTicket(ticketId);
                     }
-                } catch (error) {
-                    Pop.error(error.message)
+                }
+                catch (error) {
+                    Pop.error(error.message);
                 }
             }
-        }
-    }
+        };
+    },
+    components: { CommentCard, CommentForm }
 };
 </script>
 

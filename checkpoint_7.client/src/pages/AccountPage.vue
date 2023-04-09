@@ -7,7 +7,7 @@
     </div>
     <h3>My Events: </h3>
     <div class="row">
-      <div v-for="m in myTowerEvents" :key="m.id" class="d-flex col-lg-3 justify-content-start">
+      <div v-for="m in myTowerEvents" :key="m.id" class="d-flex col-md-4 justify-content-start">
         <EventCard :towerEvent="m" />
       </div>
     </div>

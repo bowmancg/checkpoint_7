@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="flex-grow-1 p-4 d-flex row align-items-center justify-content-center">
-      <div v-for="t in towerEvents" :key="t.id" class="p-3 my-3 col-md-2">
+      <div v-for="t in towerEvents" :key="t.id" class="p-3 my-3 col-md-4">
         <EventCard :towerEvent="t" />
       </div>
     </div>
