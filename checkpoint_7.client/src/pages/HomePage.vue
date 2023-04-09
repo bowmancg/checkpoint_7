@@ -24,6 +24,8 @@ import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import { computed } from '@vue/reactivity';
 import { AppState } from '../AppState';
+import { accountService } from '../services/AccountService';
+import { ticketsService } from '../services/TicketsService';
 
 export default {
     setup() {
