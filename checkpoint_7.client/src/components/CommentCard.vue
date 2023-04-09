@@ -26,10 +26,10 @@ export default {
     },
     setup(){
     return {
-        async deleteComment(creatorId) {
+        async deleteComment(eventId) {
             try {
                 if (await Pop.confirm("Are you sure you want to delete this?")) {
-                    await commentsService.deleteComment(creatorId)
+                    await commentsService.deleteComment(eventId)
                 }
             } catch (error) {
                 Pop.error(error.message)
