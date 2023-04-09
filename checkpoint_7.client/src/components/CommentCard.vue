@@ -6,7 +6,7 @@
             </div>
             <div class="card-footer">
                 {{ comment.creator.name }}
-                <button @click="deleteComment(creatorId)" class="btn btn-danger">Delete</button>
+                <button @click="deleteComment(comment.id)" class="btn btn-danger">Delete</button>
             </div>
 
         </div>
@@ -26,10 +26,10 @@ export default {
     },
     setup(){
     return {
-        async deleteComment(eventId) {
+        async deleteComment(commentId) {
             try {
                 if (await Pop.confirm("Are you sure you want to delete this?")) {
-                    await commentsService.deleteComment(eventId)
+                    await commentsService.deleteComment(commentId)
                 }
             } catch (error) {
                 Pop.error(error.message)

@@ -23,8 +23,8 @@ class CommentsService {
         AppState.comments.push(new Comment(res.data))
     }
 
-    async deleteComment(eventId) {
-        const res = await api.delete(`api/comments/${eventId}`)        
+    async deleteComment(commentId) {
+        const res = await api.delete(`api/comments/${commentId}`)        
         logger.log('[deleting comment]', res.data)
     }
 }
