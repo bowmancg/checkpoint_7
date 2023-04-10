@@ -5,7 +5,8 @@
                 {{ comment.body }}
             </div>
             <div class="card-footer">
-                {{ comment.creator.name }}
+                <img :src="account.picture" :alt="account.name" height="40" class="rounded"> |
+                {{ comment.creator.name }} |
                 <button @click="deleteComment(comment.id)" class="btn btn-danger">Delete</button>
             </div>
 
@@ -20,11 +21,13 @@ import { computed, reactive, onMounted } from 'vue';
 import { Comment } from '../models/Comment';
 import { commentsService } from '../services/CommentsService'
 import Pop from '../utils/Pop';
+import { Account } from '../models/Account';
 export default {
     props: {
-        comment: { type: Comment, required: true }
+        comment: { type: Comment, required: true },
+        account: { type: Account, required: true }
     },
-    setup(){
+    setup(props){
     return {
         async deleteComment(commentId) {
             try {
@@ -34,7 +37,8 @@ export default {
             } catch (error) {
                 Pop.error(error.message)
             }
-        }
+        },
+        account: computed(() => AppState.account)
         // comment: computed(() => AppState.comments)
     }
     }

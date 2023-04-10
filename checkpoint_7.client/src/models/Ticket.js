@@ -1,3 +1,4 @@
+import { Profile } from "./Account"
 
 
 export class Ticket {
@@ -5,5 +6,6 @@ export class Ticket {
         this.id = data.id
         this.eventId = data.eventId
         this.accountId = data.accountId
+        this.profile = new Profile(data.profile)
     }
 }
