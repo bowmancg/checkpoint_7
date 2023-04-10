@@ -12,23 +12,23 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted } from 'vue';
+import { computed } from 'vue';
 import { TowerEvent } from '../models/TowerEvent';
 export default {
     props: {
         towerEvent: { type: TowerEvent, required: true }
     },
-    setup(){
-    return {
-        account: computed(() => AppState.account)
-    }
+    setup() {
+        return {
+            account: computed(() => AppState.account)
+        }
     }
 };
 </script>
 
 
 <style lang="scss" scoped>
-.ticket-card{
+.ticket-card {
     height: 20vh;
     width: 50vh;
 }

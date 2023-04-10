@@ -22,8 +22,11 @@
                 </div>
             </div>
             <div class="row">
-                <div v-for="t in tickets" :key="t.id" class="col-xs-8">
-                    <img :src="t.profile.picture" :alt="t.profile.name" height="40" class="rounded">
+                <div class="col-xs-12">
+
+                    <span v-for="t in tickets" :key="t.id">
+                        <img :src="t.profile.picture" :alt="t.profile.name" height="40" class="rounded">
+                    </span>
                 </div>
             </div>
             <div class="row">
@@ -40,14 +43,15 @@
         <div class="col-md-8">
             <div class="row">
                 <div class="col-md-4 p-4">
-                    <button class="btn btn-success" v-if="account.id && !isAttending && canAttend && !towerEvent.isCanceled" :disabled="towerEvent.isCanceled"
-                        @click="createTicket()">Attend</button>
+                    <button class="btn btn-success" v-if="account.id && !isAttending && canAttend && !towerEvent.isCanceled"
+                        :disabled="towerEvent.isCanceled" @click="createTicket()">Attend</button>
                     <button class="btn btn-danger" @click="deleteTicket(isAttending.ticketId)"
                         v-if="account && isAttending">Delete Ticket</button>
                 </div>
                 <div class="col-md-4 p-4 mt-3">
                     <button @click="cancelEvent()" class="btn btn-warning"
-                        v-if="account.id && account.id == towerEvent.creatorId && !towerEvent.isCanceled">Cancel Event</button>
+                        v-if="account.id && account.id == towerEvent.creatorId && !towerEvent.isCanceled">Cancel
+                        Event</button>
                 </div>
             </div>
         </div>

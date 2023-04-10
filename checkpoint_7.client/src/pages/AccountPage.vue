@@ -13,17 +13,17 @@
     </div>
     <div class="row">
       <div class="col-xs-12">
-        <h3>Upcoming Events: </h3>
+        <h3>Tickets: </h3>
       </div>
     </div>
-    <div v-for="m in nextEvents.slice(0, 5)" :key="m.id" class="row m-2">
+    <!-- <div v-for="t in towerEvent" :key="t.id" class="row m-2">
       <div class="col-3">
+        <TicketCard :towerEvent="t" />
+      </div> -->
+      <!-- <div v-for="m in myTowerEvents" :key="m.id" class="col-3">
         <TicketCard :towerEvent="m" />
-      </div>
-      <div v-for="m in myTowerEvents" :key="m.id" class="col-3">
-        <TicketCard :towerEvent="m" />
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
   </div>
 </template>
 
